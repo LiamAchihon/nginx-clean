@@ -1,0 +1,31 @@
+- name: Simple NGINX Deployment
+  hosts: web
+  become: true
+  tasks:
+    - name: Install Docker
+      yum:
+        name: docker
+        state: present
+
+    - name: Start Docker
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Create custom HTML page
+      copy:
+        content: |
+          <html>
+            <body>
+              <h1>yo this is nginx</h1>
+            </body>
+          </html>
+        dest: /home/ec2-user/index.html
+
+    - name: Run NGINX container with custom HTML
+      command: >
+        docker run -d --name nginx
+        -p 80:80
+        -v /home/ec2-user/index.html:/usr/share/nginx/html/index.html:ro
+        nginx
