@@ -40,7 +40,9 @@ ${ec2_ip} ansible_user=ec2-user ansible_ssh_private_key_file=${PRIVATE_KEY}
 
         stage('Run Ansible Playbook') {
             steps {
-                sh 'ansible-playbook -i ansibel/inventory.ini ansibel/playbook.yml'
+                sh '''
+                    ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i ansibel/inventory.ini ansibel/playbook.yml
+                '''
             }
         }
     }
