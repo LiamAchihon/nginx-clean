@@ -112,7 +112,7 @@ resource "aws_instance" "nginx" {
 # ✅ NEW: Elastic IP for instance
 resource "aws_eip" "eip" {
   instance = aws_instance.nginx.id
-  vpc      = true
+  
 }
 
 resource "aws_lb_target_group" "tg" {
