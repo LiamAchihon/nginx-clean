@@ -1,3 +1,1 @@
-variable "region" {
-  default = "us-east-1"
-}
+# No variables needed currently, placeholder if needed later
