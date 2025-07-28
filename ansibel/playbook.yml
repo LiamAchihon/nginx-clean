@@ -23,9 +23,13 @@
           </html>
         dest: /home/ec2-user/index.html
 
-    - name: Run NGINX container with custom HTML
-      command: >
-        docker run -d --name nginx
-        -p 80:80
-        -v /home/ec2-user/index.html:/usr/share/nginx/html/index.html:ro
-        nginx
+    - name: Run NGINX container
+      docker_container:
+        name: nginx
+        image: nginx
+        state: started
+        restart_policy: always
+        published_ports:
+          - "80:80"
+        volumes:
+          - /home/ec2-user/index.html:/usr/share/nginx/html/index.html:ro
