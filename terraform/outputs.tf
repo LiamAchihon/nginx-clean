@@ -8,9 +8,3 @@ output "instance_public_ip" {
   value       = aws_instance.nginx.public_ip
 }
 
-output "ec2_eip" {
-  description = "Elastic IP for Ansible"
-  value       = aws_eip.eip.public_ip
-}
-
-
