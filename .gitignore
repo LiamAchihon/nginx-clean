@@ -3,3 +3,4 @@
 *.tfstate.backup
 terraform.tfstate
 terraform.tfstate.backup
+ansibel/inventory.ini
