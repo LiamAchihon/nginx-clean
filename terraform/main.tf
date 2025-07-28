@@ -97,16 +97,22 @@ resource "aws_key_pair" "liam" {
 }
 
 resource "aws_instance" "nginx" {
-  ami                    = "ami-0c101f26f147fa7fd" # Amazon Linux 2023 us-east-1
-  instance_type          = "t2.micro"
-  subnet_id              = aws_subnet.public_a.id
-  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
-  key_name               = aws_key_pair.liam.key_name
+  ami                         = "ami-0c101f26f147fa7fd" # Amazon Linux 2023 us-east-1
+  instance_type               = "t2.micro"
+  subnet_id                   = aws_subnet.public_a.id
+  vpc_security_group_ids      = [aws_security_group.ec2_sg.id]
+  key_name                    = aws_key_pair.liam.key_name
   associate_public_ip_address = true
 
   tags = {
     Name = "nginx-instance"
   }
+}
+
+# ✅ NEW: Elastic IP for instance
+resource "aws_eip" "eip" {
+  instance = aws_instance.nginx.id
+  vpc      = true
 }
 
 resource "aws_lb_target_group" "tg" {
